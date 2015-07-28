@@ -103,7 +103,6 @@ struct cpufreq_policy {
 	 */
 	struct rw_semaphore	rwsem;
 
-
 	/*
 	 * Fast switch flags:
 	 * - fast_switch_possible should be set by the driver if it can
@@ -138,6 +137,7 @@ struct cpufreq_policy {
 
 	/* For cpufreq driver's internal use */
 	void			*driver_data;
+	unsigned int util;
 };
 
 /* Only for ACPI */
@@ -195,6 +195,7 @@ static inline unsigned int cpufreq_quick_get_max(unsigned int cpu)
 {
 	return 0;
 }
+unsigned int cpufreq_quick_get_util(unsigned int cpu);
 static inline void disable_cpufreq(void) { }
 #endif
 
@@ -343,6 +344,9 @@ int cpufreq_unregister_driver(struct cpufreq_driver *driver_data);
 
 const char *cpufreq_get_current_driver(void);
 void *cpufreq_get_driver_data(void);
+
+void cpufreq_notify_utilization(struct cpufreq_policy *policy,
+                                unsigned int load);
 
 static inline void cpufreq_verify_within_limits(struct cpufreq_policy *policy,
 		unsigned int min, unsigned int max)
@@ -533,6 +537,9 @@ extern struct cpufreq_governor cpufreq_gov_sched;
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL)
 extern struct cpufreq_governor cpufreq_gov_schedutil;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_schedutil)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_NIGHTMARE)
+extern struct cpufreq_governor cpufreq_gov_nightmare;
+#define CPUFREQ_DEFAULT_GOVERNOR        (&cpufreq_gov_nightmare)
 #endif
 
 static inline void cpufreq_policy_apply_limits(struct cpufreq_policy *policy)
