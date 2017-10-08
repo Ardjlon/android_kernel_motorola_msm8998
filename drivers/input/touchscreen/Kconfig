@@ -1276,4 +1276,8 @@ source "drivers/input/touchscreen/st/Kconfig"
 source "drivers/input/touchscreen/gt9xx_mmi/Kconfig"
 source "drivers/input/touchscreen/nova_mmi/Kconfig"
 source "drivers/input/touchscreen/novatek_mmi/Kconfig"
+source "drivers/input/touchscreen/synaptics_tcm_mmi/Kconfig"
+
+config SCREEN_OFF_GESTURES
+	bool "screen off gestures"
 endif
