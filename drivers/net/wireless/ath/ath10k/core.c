@@ -2147,6 +2147,7 @@ static int ath10k_core_probe_fw(struct ath10k *ar)
 	       ar->normal_mode_fw.fw_file.fw_version,
 	       sizeof(ar->hw->wiphy->fw_version));
 	ath10k_debug_print_hwfw_info(ar);
+	}
 
 	if (ar->is_bmi) {
 		ret = ath10k_core_pre_cal_download(ar);
