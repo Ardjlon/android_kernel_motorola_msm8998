@@ -1608,7 +1608,7 @@ static const struct usb_gadget_driver configfs_driver_template = {
 	.suspend	= composite_suspend,
 	.resume		= composite_resume,
 
-	.max_speed	= USB_SPEED_SUPER,
+	.max_speed	= USB_SPEED_SUPER_PLUS,
 	.driver = {
 		.owner          = THIS_MODULE,
 		.name		= "configfs-gadget",
@@ -1709,11 +1709,6 @@ static struct device_attribute *android_usb_attributes[] = {
 	&dev_attr_state,
 	&dev_attr_secure,
 	NULL
-	.max_speed	= USB_SPEED_SUPER_PLUS,
-	.driver = {
-		.owner          = THIS_MODULE,
-		.name		= "configfs-gadget",
-	},
 };
 
 static int android_device_create(struct gadget_info *gi)
